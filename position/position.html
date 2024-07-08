@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        /*
+        html {
+            border:solid 50px;
+        }
+*/
+        .container {
+            width: 500px;
+            height: 400px;
+            border: solid;
+            /*            position: static;*/
+            position: relative;
+        }
+
+        .item {
+            width: 200px;
+            height: 200px;
+            background-color: black;
+            color: white;
+            font-size: 50px;
+        }
+
+        .item:first-child {
+            position: relative;
+            right: 50px;
+            background-color: red;
+
+        }
+
+        #abs:nth-child(2) {
+            position: absolute;
+            opacity: 0.5;
+            right: 50px;
+            bottom: 50px;
+
+        }
+
+        .item:last-child {
+            /*            fixed item relatives to viewport*/
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--   relatve vs absolute
+   relative:vrelation to its original
+   position, not free space -->
+    <div class="container">
+        <div class="item">reative</div>
+        <div id="abs" class="item">abselute</div>
+
+    </div>
+    <div class="item">fixed</div>
+
+</body></html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        body {
+            text-align: center;
+        }
+
+        img {
+            width: 200px;
+            border-radius: 50%
+        }
+
+        div {
+
+            height: 120px;
+            background-color: purple;
+            margin-bottom: 10px;
+        }
+
+        @media all and (min-width:521px) {
+            div {
+                background-color: red;
+                width: 49.5%;
+                display: inline-block;
+
+            }
+
+            img {
+                display: none;
+            }
+        }
+
+        @media all and (min-width:768px) {
+            div {
+                background-color: fuchsia;
+                width: 33%;
+            }
+
+            @media print {
+                img {
+                    display: none
+                }
+            }
+
+    </style>
+</head>
+
+<body>
+    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=640:*" alt="">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+</body>
+
+</html>

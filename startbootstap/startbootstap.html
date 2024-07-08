@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /*navbar */
+        #navbar {
+            background-color: #2c3e50;
+            color: white;
+
+            overflow: auto;
+            padding: 29px 80px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        #navbar ul li {
+            display: inline-block;
+            font-size: 16px;
+            margin-left: 40px;
+        }
+
+        #logo {
+            float: left;
+            font-size: 20px;
+        }
+
+        #navbar ul {
+            float: right;
+        }
+
+        /*        banner */
+        #banner {
+            background-color: #1abc9c;
+            text-align: center;
+            padding: 102px 0;
+            color: white;
+        }
+
+        #banner img {
+            width: 242px;
+        }
+
+        #banner h1 {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 44px;
+            margin: 40px auto;
+        }
+
+        #banner hr {
+            border: none;
+            height: 4px;
+            background-color: white;
+            width: 300px;
+            margin: auto;
+            border-radius: 2px;
+        }
+
+        #banner p {
+            font-size: 20px;
+            text-transform: capitalize;
+            font-family: 'Lato', sans-serif;
+            margin-top: 45px;
+            /*            letter-spacing: 0.2px;*/
+            /*            word-spacing: 0.1px;*/
+        }
+
+        #banner .fa-star {
+            width: 67px;
+            height: 41px;
+            display: block;
+            font-size: 33px;
+            margin: auto;
+            margin-top: -21px;
+            background-color: #1abc9c;
+        }
+
+        #portfolio {
+            text-align: center;
+        }
+
+        .fas {
+            position: relative;
+            top: -73px;
+            font-size: 40px;
+            background-color: white;
+            width: 70px;
+        }
+
+        #portfolio img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        #portfolio .container {
+            position: relative;
+            display: inline-block;
+            width: 300px;
+            margin: 20px;
+        }
+
+        #portfolio .container:after {
+            content: '';
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(106, 211, 159, 0);
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            transition: 0.1s;
+        }
+
+        #portfolio .container:hover:after {
+            background-color: rgba(106, 211, 159, 0.8);
+        }
+
+        h1 {
+            font-family: 'montserrat', sans-serif;
+
+            color: #272562;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 39px;
+            margin: 30px;
+            text-align: center;
+        }
+
+        hr {
+            background-color: #181841;
+            height: 4px;
+            border: none;
+            width: 300px;
+            border-radius: 2px;
+            margin: 50px auto;
+            margin-top: 20px;
+        }
+
+        /*        About */
+        #about {
+            color: white;
+
+            background-color: #1bc1a1;
+            text-align: center;
+        }
+
+        #about h1 {
+            color: white;
+        }
+
+        #abouttitle {
+
+            padding-top: 30px;
+
+        }
+
+        #abouthr {
+            background-color: #ffffff;
+            height: 4px;
+            border: none;
+            width: 300px;
+            border-radius: 2px;
+            margin: 50px auto;
+            margin-top: 20px;
+
+        }
+
+        #about p {
+            font-size: 30px;
+            width: 40%;
+            display: inline-block;
+            text-align: left;
+
+            vertical-align: top;
+        }
+
+        #download {
+            padding-bottom: 61px;
+        }
+
+        #downloadtext {
+            border: solid white;
+            display: inline-block;
+            text-align: center;
+            margin: auto;
+            color: white;
+            font-size: 30px;
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+
+        }
+
+        contactne {
+            padding: 80px;
+            text-align: center;
+        }
+
+        contactne {}
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div id="navbar">
+            <div id="logo">start bootstrap</div>
+            <ul>
+                <li>portfolio</li>
+                <li>about</li>
+                <li>contact</li>
+            </ul>
+        </div>
+        <div id="banner">
+            <img src="https://startbootstrap.github.io/startbootstrap-freelancer/assets/img/avataaars.svg" alt="">
+            <h1>start bootstrap</h1>
+            <hr>
+            <i class="fas fa-star"></i>
+            <p>Graphic Artist - Web Designer - Illustrator</p>
+        </div>
+    </header>
+
+    <div id="portfolio">
+        <h1>portfolio</h1>
+        <hr>
+        <i class="fas fa-star"></i>
+        <br>
+        <div class="container">
+            <img src="https://hoola.agency/img/portfolio/cabin.png" alt="">
+        </div>
+        <div class="container">
+            <img src="https://longestfoxever.win/assets/img/portfolio/cake.png" alt="">
+        </div>
+        <div class="container">
+            <img src="https://longestfoxever.win/assets/img/portfolio/circus.png" alt="">
+        </div>
+        <div class="container">
+            <img src="https://longestfoxever.win/assets/img/portfolio/game.png" alt="">
+        </div>
+        <div class="container">
+            <img src="https://longestfoxever.win/assets/img/portfolio/safe.png" alt="">
+        </div>
+        <div class="container">
+            <img src="https://longestfoxever.win/assets/img/portfolio/submarine.png" alt="">
+        </div>
+    </div>
+
+    <div id="about">
+        <h1 id="abouttitle">ABOUT</h1>
+        <hr id="abouthr">
+        <p> Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.
+        </p>
+
+        <p>
+            You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p>
+
+        <div id="download">
+            <a href="" id="downloadtext">Free Download!</a>
+        </div>
+    </div>
+</body>
+
+</html>

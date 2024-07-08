@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Nunito", sans-serif;
+        }
+
+        #navbar {
+            padding: 22px 88px;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 1px;
+
+            position: sticky;
+            top: 0;
+
+            background-color: white;
+        }
+
+        #banner {
+            padding: 150px 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%), url(https://startbootstrap.github.io/startbootstrap-grayscale/assets/img/bg-masthead.jpg);
+            background-size: 146%;
+            background-position: -185px;
+            text-align: center;
+            background-repeat: no-repeat;
+        }
+
+        #banner h1 {
+            font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 2.5rem;
+            letter-spacing: 0.8rem;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        #banner p {
+            color: rgba(255, 255, 255, 0.5);
+            width: 335px;
+            margin: auto;
+            margin-top: 4px;
+            margin-bottom: 71px;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
+        }
+
+        #banner a {
+            background-color: #64a19d;
+            text-decoration: none;
+            padding: 21px 33px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            color: white;
+            border-radius: 5px;
+        }
+
+        @media all and (min-width:768px) {
+            #banner h1 {
+                font-size: 3.9rem;
+                letter-spacing: 15px;
+            }
+        }
+
+        @media all and (min-width:992px) {
+            #banner h1 {
+                font-size: 6rem;
+            }
+
+            #banner p {
+                width: 500px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /*        intro*/
+        #intro {
+            padding: 150px 0;
+            background: linear-gradient(to bottom, #000000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%);
+            text-align: center;
+        }
+
+        #intro h1,
+        #portfolio h1 {
+            color: white;
+            font-weight: 400;
+            font-size: 2.1rem;
+            letter-spacing: 1px;
+        }
+
+        #intro p,
+        #portfolio p {
+            color: rgba(255, 255, 255, 0.5);
+            width: 516px;
+            margin: auto;
+            margin-top: 21px;
+            margin-bottom: 71px;
+            font-size: 1rem;
+            letter-spacing: 0.9px;
+            word-spacing: 1px;
+        }
+
+        #intro a {
+            text-decoration: none;
+            color: #64a19d;
+        }
+
+        #intro img {
+            width: 505px;
+
+        }
+
+        /*        portfolio*/
+
+        #portfolio {
+
+            text-align: center;
+            padding-top: 150px;
+
+        }
+
+        #portfolio img {
+
+            width: 100%;
+
+        }
+
+
+        #portfolio figure {
+
+            width: 580px;
+            margin: auto;
+        }
+
+        #portfolio figure:first-child p {
+
+            color: gray;
+
+        }
+
+        #portfolio figure:first-child h1 {
+
+            color: black;
+        }
+
+        #portfolio figure:not(:first-child) figcaption {
+            background-color: #000000;
+        }
+
+        #portfolio figcaption {
+
+            margin-top: -5px;
+            padding: 20px 0;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div id="navbar">
+            <div id="logo">Start Bootstrap</div>
+        </div>
+
+        <div id="banner">
+            <h1>GRAYSCALE</h1>
+            <p>A free, responsive, one page Bootstrap theme created by Start Bootstrap.</p>
+            <a href="">GET STARTED</a>
+        </div>
+
+        <div id="intro">
+            <h1>Built with Bootstrap 4</h1>
+            <p>Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
+            <img src="https://startbootstrap.github.io/startbootstrap-grayscale/assets/img/ipad.png" alt="">
+        </div>
+        <div id="portfolio">
+
+            <figure>
+                <img src="https://startbootstrap.github.io/startbootstrap-grayscale/assets/img/bg-masthead.jpg" alt="">
+                <figcaption>
+                    <h1>Shoreline</h1>
+                    <p>Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+
+                </figcaption>
+
+            </figure>
+
+            <figure>
+
+                <img src="https://startbootstrap.github.io/startbootstrap-grayscale/assets/img/demo-image-01.jpg" alt="">
+                <figcaption>
+                    <h1>Misty</h1>
+                    <p>An example of where you can put an image of a project, or anything else, along with a description.</p>
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="https://startbootstrap.github.io/startbootstrap-grayscale/assets/img/demo-image-02.jpg" alt="">
+                <figcaption>
+                    <h1>
+                        Mountains
+                    </h1>
+
+                    <p>Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                </figcaption>
+            </figure>
+        </div>
+
+
+    </header>
+
+</body>
+
+</html>

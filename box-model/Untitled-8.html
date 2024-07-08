@@ -1,0 +1,56 @@
+
+<!--prove-radius-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #container {
+            width: 400px;
+            height: 600px;
+            border: solid 20px;
+            border-top-left-radius: 100px;
+            
+            
+        }
+
+        #item1 {
+            width: 200px;
+            height: 200px;
+            border: solid 20px red;
+            border-radius: 50%;
+
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
+
+        #item2 {
+            width: 400px;
+            height: 200px;
+            border: solid 20px red;
+
+            position: absolute;
+            top: 408px;
+            left: 0px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--    #container>#item1+#item2-->
+    <div id="container">
+        <div id="item1"></div>
+        <div id="item2"></div>
+    </div>
+
+</body></html>
+
+

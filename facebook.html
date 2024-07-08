@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        form {
+            border: soolid 1px;
+            width: 400px;
+        }
+
+        input {
+            width: 80%；height: 50ps；
+        }
+
+    </style>
+</head>
+
+<body>
+    <!--  server programming   -->
+    <form action="login" method='get'>
+        <label for='name'>username</label>
+        <input name="name" type="text"><br>
+        <input name="password" type="password"><br>
+        <button>log in</button>
+        <p>forgot account?</p>
+        <hr>
+        <button>create new
+            account</button>
+        <textarea name="comments" id="" cols="30" rows="10"></textarea>
+        <br>
+
+        <select name="" id="">
+            <option value="">hot dog</option>
+            <option value="">poutine</option>
+            <option value="">pizza</option>
+        </select>
+        <input type="text" list='data'>
+        <datalist id="data">
+            <option value="hot dog"></option>
+            <option value="pizza"></option>
+            <option value="poutine"></option>
+        </datalist>
+        <meter min=1 max=100 value=60></meter>
+        <progress min=1 max=100 value=60></progress>
+
+        <input type="number"><br>
+        <input type="email">
+        <input type="url">
+        <input type="tel">
+        <input type="range" min=1 max=5 value=2>
+
+        <input type="color">
+        <input type="file">
+        <input type="search">
+        <input type="data">
+        <input type="tame">
+        <input type="week">
+        <input type="month">
+        <input type="dateime-local">
+        <br>
+        <input type="radio" name='payment' value="master">master
+        <input type="radio" name='payment' value="visa">visa
+        <input type="radio" name='payment' value="paypal">paypal
+        <br>
+
+        <input type="checkbox" name='order' value="hot dog">hot dog
+        <input type="checkbox" name='order' value="pizza">pizza
+        <input type="checkbox" name='order' value="poutine">poutine
+
+    </form>
+</body>
+
+</html>

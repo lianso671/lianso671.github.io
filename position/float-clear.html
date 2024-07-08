@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .left {
+            width: 100px;
+            height: 200px;
+            background-color: rgba(255, 0, 0, 0.54);
+            float: left;
+
+        }
+
+        .right {
+            width: 100px;
+            height: 300px;
+            background-color: black;
+            float: right;
+        }
+
+        p {
+            font-size: 1.25rem;
+            border: solid;
+            /*            not allow any flosting elements on my left side*/
+            clear: left;
+            clear: right;
+            clear: both;
+
+        }
+
+    </style>
+</head> 
+
+<body>
+    <div class="left"></div>
+    <div class="right"></div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, fugit, cupiditate! Tempore possimus eius, odio ut et sit at autem cupiditate dignissimos beatae nulla ipsa repellendus praesentium doloremque iste ab.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea quis, vel laboriosam! Accusantium quia explicabo expedita deserunt sunt numquam sint molestias, eligendi veritatis facere commodi ipsam animi deleniti, quae ea!</p>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        person={
+            name: 'joe',
+            age:'8',
+            hobbies: ['hiking','talking','pickelball'],
+            getInfo:function(){
+                return name+"with age"+age;
+            }
+        }
+        console.log(person);
+        console. table(person);
+
+        console.log(person.name);
+        person.name='john';
+        delete person.name;
+        console.log(person);
+
+        //copy object
+        a={
+            key1:'v1',
+            key2:'v2',
+        }
+        b={
+            ...a
+        }
+        console.log(b);
+        console.log(a.key==b.key3);//true
+
+        
+    </script>
+</body>
+</html>

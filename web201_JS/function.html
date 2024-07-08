@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function add(a,b) {
+        return a+b;
+    }
+    //call function
+    c=add(100,200);
+    console.log(c);
+//jnavascript don't tell you error
+    c=add(100);
+    console.log(c);//NaN
+
+    c=add(100,200,500);
+    console.log(c)//ignored
+
+    //auto  in voke
+    a=(function minus(a,b){
+        return a-b;
+    })(3,100);
+    console.log(a)
+    </script>
+</body>
+</html>
