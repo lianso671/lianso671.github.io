@@ -20,6 +20,11 @@
     var canvas = document.querySelector('canvas');
     var ctx = canvas.getContext('2d');
 
+    // Audio
+    let audio = new Audio("/miracle_2-ilya_truhanov.mp3");
+    audio.volume = 0.1;
+    audio.loop = true;
+
     // 
     // events
     window.addEventListener('keydown', function (e) {
@@ -37,6 +42,11 @@
         right = true;
       } else if (e.code === 'Space') {
         pause = !pause; // toggle the value
+        if (pause) {
+          audio.pause();
+        } else {
+          audio.play();
+        }
       }
     });
 
@@ -254,6 +264,8 @@
       ball.update();
     }
 
+    // Start playing audio when game starts
+    audio.play();
     loop();
 
   </script>

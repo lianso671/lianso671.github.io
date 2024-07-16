@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas{
+            border: solid green 4px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="audio" controls src="/miracle_2-ilya_truhanov.mp3"></audio>
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script>
+        let canvas=document.querySelector('#canvas');
+        let ctx=canvas.getContext('2d');
+        //1properties.2methods,3events
+        let audio=documnet.querySelector('#audio')
+        audio.play()
+
+        ctx.fillText(audio.src,50,50)
+
+        
+    </script>
+
+</body>
+</html>
