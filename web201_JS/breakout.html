@@ -9,21 +9,46 @@
     canvas {
       border: solid 10px #66ba66;
     }
+
+    #background{
+      position: absolute
+    }
+
+    #canvas{
+      position:absolute
+    }
+
   </style>
 </head>
 
 <body>
+  <canvas id="'background" width="600" height="600"></canvas>
   <canvas id='canvas' width=600 height=600></canvas>
 
   <script src="debug.js"></script>
   <script>
-    var canvas = document.querySelector('canvas');
+    var canvas = document.querySelector('#canvas');
     var ctx = canvas.getContext('2d');
 
-    // Audio
-    let audio = new Audio("/miracle_2-ilya_truhanov.mp3");
-    audio.volume = 0.1;
-    audio.loop = true;
+    //bg
+    var bgCanvas=document.querySelector('#background')
+    var c=bgCanvas.getContext('2d')
+    let bg=new Image()
+    bg.src='breakout_bg_avif'
+    bg.addEventListener('load',function(){
+      c.drawImage(bg,0,0,bgCanvas.width,bgCanvas.height)
+    })
+
+
+    // audio
+    let audioBounce=new Audio('./bounce.mp3');
+    audioBounce.addEventListener('loadedmetadata',function() {
+    });
+    function play(audio) {
+      audio.volume=0.1;
+      let a=audio.cloneNode();
+      a.play();
+    }
 
     // 
     // events
@@ -42,11 +67,6 @@
         right = true;
       } else if (e.code === 'Space') {
         pause = !pause; // toggle the value
-        if (pause) {
-          audio.pause();
-        } else {
-          audio.play();
-        }
       }
     });
 
@@ -85,11 +105,11 @@
         && circle.y - circle.r > rect.y) {
         console.log("Collision on bottom")
         return true;
-      }
-      else {
+      } else {
         return false;
       }
     }
+
     // write text
     function drawText(text,x,y,color) {
       ctx.beginPath();
@@ -181,8 +201,8 @@
     let ball = {
       x: canvas.width / 2,
       y: canvas.height - paddle.h - 15,
-      dx: 10, // delta x
-      dy: -12,
+      dx: 2, // delta x
+      dy: -3,
       r: 15,
       draw: function () {
         ctx.beginPath();
@@ -200,13 +220,15 @@
               || collisionOnBottom(this, blocks[r][c]))) {
                 blocks[r][c].exist=false;
                 this.dy*=-1;
-                score += 10; // Increase score by 10 when a block is hit
+                //
+                play(audioBounce);
             }
           }
         }
         // ball hit left or right of canvas
         if (this.x - this.r <= 0 || this.x + this.r >= canvas.width) {
           this.dx *= -1;
+          play(audioBounce);
         }
         // hit paddle
         if (collisionOnTop(this, paddle)) {
@@ -222,10 +244,14 @@
           this.dx = energy * Math.cos(angle * Math.PI / 180);
           this.dy = -energy * Math.sin(angle * Math.PI / 180);
           // console.log('dx,dy',this.dx,this.dy);
+
+          // play sound
+          play(audioBounce);
         }
         // ball hit top or bottom of canvas
         if (this.y - this.r <= 0 || this.y + this.r >= canvas.height) {
           this.dy *= -1;
+          play(audioBounce);
         }
         this.x += this.dx;
         this.y += this.dy;
@@ -264,8 +290,6 @@
       ball.update();
     }
 
-    // Start playing audio when game starts
-    audio.play();
     loop();
 
   </script>
