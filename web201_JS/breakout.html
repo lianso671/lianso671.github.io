@@ -10,45 +10,46 @@
       border: solid 10px #66ba66;
     }
 
-    #background{
-      position: absolute
+    #background {
+      position: absolute;
     }
 
-    #canvas{
-      position:absolute
+    #canvas {
+      position: absolute;
     }
-
   </style>
 </head>
 
 <body>
-  <canvas id="'background" width="600" height="600"></canvas>
+  <canvas id="background" width="600" height="600"></canvas>
   <canvas id='canvas' width=600 height=600></canvas>
 
   <script src="debug.js"></script>
   <script>
+    // draw background
+    var bgCanvas=document.querySelector('#background');
+    var c=bgCanvas.getContext('2d');
+    let bg=new Image();
+    bg.src="breakout_bg.avif";
+    bg.addEventListener('load',function(){
+      c.drawImage(bg,0,0,bgCanvas.width,bgCanvas.height);
+    });
+
+    // draw game
     var canvas = document.querySelector('#canvas');
     var ctx = canvas.getContext('2d');
-
-    //bg
-    var bgCanvas=document.querySelector('#background')
-    var c=bgCanvas.getContext('2d')
-    let bg=new Image()
-    bg.src='breakout_bg_avif'
-    bg.addEventListener('load',function(){
-      c.drawImage(bg,0,0,bgCanvas.width,bgCanvas.height)
-    })
-
 
     // audio
     let audioBounce=new Audio('./bounce.mp3');
     audioBounce.addEventListener('loadedmetadata',function() {
     });
     function play(audio) {
-      audio.volume=0.1;
+      audio.volume=0.0;
       let a=audio.cloneNode();
       a.play();
     }
+
+
 
     // 
     // events
@@ -67,6 +68,10 @@
         right = true;
       } else if (e.code === 'Space') {
         pause = !pause; // toggle the value
+      } else if (e.code === 'KeyS') {
+        gameoverFlag=false;
+        ball.init();
+        paddle.init();
       }
     });
 
@@ -113,6 +118,8 @@
     // write text
     function drawText(text,x,y,color) {
       ctx.beginPath();
+      ctx.textBaseLine='middle';
+      ctx.textAlign='center';
       ctx.font="20px monospace";
       ctx.fillStyle=color;
       ctx.fillText(text,x,y);
@@ -172,6 +179,10 @@
       w: 160,
       h: 20,
       dx: 5,
+      init: function() {
+        this.x=canvas.width/2-this.w/2;
+        this.y=canvas.height -this.h;
+      },
       draw: function () {
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.w, this.h);
@@ -194,16 +205,30 @@
 
     paddle.draw();
 
+    // game over
+    let gameoverFlag=false;
+    function gameover() {
+      gameoverFlag=true;
+      drawText('Game over! Press "S" to start',canvas.width/2,canvas.height/2);
+    }
+
     // ball
     let maxAngle = 160;
     let minAngle = 20;
 
+    // 
     let ball = {
       x: canvas.width / 2,
       y: canvas.height - paddle.h - 15,
       dx: 2, // delta x
-      dy: -3,
+      dy: -8,
       r: 15,
+      init: function(){
+        this.x=canvas.width/2;
+        this.y=canvas.height-paddle.h-15;
+        this.dx=0;
+        this.dy=-8;
+      },
       draw: function () {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
@@ -217,7 +242,7 @@
             if (blocks[r][c].exist && (collisionOnTop(this, blocks[r][c])
               || collisionOnLeft(this, blocks[r][c])
               || collisionOnRight(this, blocks[r][c])
-              || collisionOnBottom(this, blocks[r][c]))) {
+              )) {
                 blocks[r][c].exist=false;
                 this.dy*=-1;
                 //
@@ -249,9 +274,15 @@
           play(audioBounce);
         }
         // ball hit top or bottom of canvas
-        if (this.y - this.r <= 0 || this.y + this.r >= canvas.height) {
+        if (this.y - this.r <= 0 
+        // || this.y + this.r >= canvas.height
+      ) {
           this.dy *= -1;
           play(audioBounce);
+        }
+        
+        if (this.y+this.r>=canvas.height) {
+          gameover();
         }
         this.x += this.dx;
         this.y += this.dy;
@@ -267,6 +298,7 @@
     function loop() {
       requestAnimationFrame(loop);
       if (pause) return;
+      if (gameoverFlag) return;
       // 1 clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
