@@ -21,18 +21,18 @@
 </head>
 
 <body>
-  <canvas id="background" width="600" height="600"></canvas>
-  <canvas id='canvas' width=600 height=600></canvas>
+  <canvas id="background" width="450" height="600"></canvas>
+  <canvas id='canvas' width=450 height=600></canvas>
 
   <script src="debug.js"></script>
   <script>
     // draw background
-    var bgCanvas=document.querySelector('#background');
-    var c=bgCanvas.getContext('2d');
-    let bg=new Image();
-    bg.src="breakout_bg.avif";
-    bg.addEventListener('load',function(){
-      c.drawImage(bg,0,0,bgCanvas.width,bgCanvas.height);
+    var bgCanvas = document.querySelector('#background');
+    var c = bgCanvas.getContext('2d');
+    let bg = new Image();
+    bg.src = "breakout_bg.avif";
+    bg.addEventListener('load', function () {
+      c.drawImage(bg, 0, 0, bgCanvas.width, bgCanvas.height);
     });
 
     // draw game
@@ -40,18 +40,15 @@
     var ctx = canvas.getContext('2d');
 
     // audio
-    let audioBounce=new Audio('./bounce.mp3');
-    audioBounce.addEventListener('loadedmetadata',function() {
+    let audioBounce = new Audio('./bounce.mp3');
+    audioBounce.addEventListener('loadedmetadata', function () {
     });
     function play(audio) {
-      audio.volume=0.0;
-      let a=audio.cloneNode();
-      a.play();
+      // audio.volume = 0.0;
+      // let a = audio.cloneNode();
+      // a.play();
     }
 
-
-
-    // 
     // events
     window.addEventListener('keydown', function (e) {
       console.log(e.code);
@@ -66,9 +63,12 @@
       }
       else if (e.code === "ArrowRight") {
         right = true;
-      } else if (e.code === 'Space') {
+      } else if (e.code === 'KeyP') {
         pause = !pause; // toggle the value
-      } else if (e.code === 'KeyS') {
+      } else if (e.code === 'Space') {
+        gameStartFlag=true;
+        gameoverFlag=false;
+      } else if (e.code==='KeyS') {
         gameoverFlag=false;
         ball.init();
         paddle.init();
@@ -116,13 +116,13 @@
     }
 
     // write text
-    function drawText(text,x,y,color) {
+    function drawText(text, x, y, color) {
       ctx.beginPath();
-      ctx.textBaseLine='middle';
-      ctx.textAlign='center';
-      ctx.font="20px monospace";
-      ctx.fillStyle=color;
-      ctx.fillText(text,x,y);
+      ctx.textAlign = 'center';
+      ctx.textBaseLine = 'middle';
+      ctx.font = "20px monospace";
+      ctx.fillStyle = color;
+      ctx.fillText(text, x, y);
     }
 
     // block
@@ -138,6 +138,11 @@
         if (!this.exist) return;
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.w, this.h);
+        let g=ctx.createLinearGradient(this.x,this.y,this.x+this.w,this.y+this.h);
+        g.addColorStop(0,'orange');
+        g.addColorStop(1,'red');
+        
+        ctx.fillStyle=g;
         ctx.fill();
       },
       update: function () {
@@ -179,9 +184,9 @@
       w: 160,
       h: 20,
       dx: 5,
-      init: function() {
-        this.x=canvas.width/2-this.w/2;
-        this.y=canvas.height -this.h;
+      init: function () {
+        this.x = canvas.width / 2 - this.w / 2;
+        this.y = canvas.height - this.h;
       },
       draw: function () {
         ctx.beginPath();
@@ -193,11 +198,17 @@
         if (left) {
           if (this.x - this.dx >= 0) {
             this.x -= this.dx;
+            if (!gameStartFlag) {
+              ball.x -= this.dx;
+            }
           }
         }
         if (right) {
           if (this.x + this.w + this.dx <= canvas.width) {
             this.x += this.dx;
+            if (!gameStartFlag) {
+              ball.x += this.dx;
+            }
           }
         }
       }
@@ -206,10 +217,12 @@
     paddle.draw();
 
     // game over
-    let gameoverFlag=false;
+    let gameoverFlag = false;
+    let gameStartFlag = false;
     function gameover() {
-      gameoverFlag=true;
-      drawText('Game over! Press "S" to start',canvas.width/2,canvas.height/2);
+      gameoverFlag = true;
+      gameStartFlag=false;
+      drawText('Game over! Press "S" to start', canvas.width / 2, canvas.height / 2);
     }
 
     // ball
@@ -219,34 +232,41 @@
     // 
     let ball = {
       x: canvas.width / 2,
-      y: canvas.height - paddle.h - 15,
-      dx: 2, // delta x
-      dy: -8,
+      y: canvas.height - paddle.h - 15 - 2,
+      dx: 0, // delta x
+      dy: -5,
       r: 15,
-      init: function(){
-        this.x=canvas.width/2;
-        this.y=canvas.height-paddle.h-15;
-        this.dx=0;
-        this.dy=-8;
+      init: function () {
+        this.x = canvas.width / 2;
+        this.y = canvas.height - paddle.h - this.r - 2;
+        this.dx = 0;
+        this.dy = -5;
       },
       draw: function () {
         ctx.beginPath();
+        // ctx.fillStyle = 'blue';
+        //
+        let g=ctx.createRadialGradient(this.x-5,this.y-5,this.r/8,this.x-5,this.y-5,this.r);
+        g.addColorStop(0,'white');
+        g.addColorStop(1,'black');
+        ctx.fillStyle=g;
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'blue';
         ctx.fill();
       },
       update: function () {
+        if (!gameStartFlag) return;
         // ball hit blocks
         for (let r = 0; r < rows; r++) {
           for (let c = 0; c < cols; c++) {
-            if (blocks[r][c].exist && (collisionOnTop(this, blocks[r][c])
-              || collisionOnLeft(this, blocks[r][c])
-              || collisionOnRight(this, blocks[r][c])
-              )) {
-                blocks[r][c].exist=false;
-                this.dy*=-1;
-                //
-                play(audioBounce);
+            if (blocks[ r ][ c ].exist && (collisionOnTop(this, blocks[ r ][ c ])
+              || collisionOnLeft(this, blocks[ r ][ c ])
+              || collisionOnRight(this, blocks[ r ][ c ])
+            )) {
+              blocks[ r ][ c ].exist = false;
+              this.dy *= -1;
+              score+=1;
+              //
+              play(audioBounce);
             }
           }
         }
@@ -274,14 +294,14 @@
           play(audioBounce);
         }
         // ball hit top or bottom of canvas
-        if (this.y - this.r <= 0 
-        // || this.y + this.r >= canvas.height
-      ) {
+        if (this.y - this.r <= 0
+          // || this.y + this.r >= canvas.height
+        ) {
           this.dy *= -1;
           play(audioBounce);
         }
-        
-        if (this.y+this.r>=canvas.height) {
+
+        if (this.y + this.r >= canvas.height) {
           gameover();
         }
         this.x += this.dx;
@@ -303,7 +323,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // 2 draw
-      drawText("Score: "+score, 10,20,'blue');
+      drawText("Score: " + score, 60, 20, 'blue');
       blocks.forEach(function (row) {
         row.forEach(function (block) {
           block.draw();
