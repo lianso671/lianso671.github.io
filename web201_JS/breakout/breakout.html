@@ -21,6 +21,10 @@
 </head>
 
 <body>
+  <!-- 
+  create variable: level
+  if break all blocks, increase level, and init game for the new level
+  -->
   <canvas id="background" width="450" height="600"></canvas>
   <canvas id='canvas' width=450 height=600></canvas>
 
@@ -172,8 +176,11 @@
       return blocks;
     }
 
-    let rows = 3;
-    let cols = 5;
+    let level=1;
+    let rows = 1;
+    let cols = 3;
+    let numOfBricks=rows*cols;
+
     let blocks = createBlocks(rows, cols);
     console.log(blocks);
 
@@ -225,6 +232,20 @@
       drawText('Game over! Press "S" to start', canvas.width / 2, canvas.height / 2);
     }
 
+    //
+    function gameInit() {
+      /*
+        draw bricks
+        reset ball and paddle
+      */
+     rows++;
+     blocks= createBlocks(rows,cols);
+     ball.init();
+     paddle.init();
+
+     gameStartFlag=false;
+    }
+
     // ball
     let maxAngle = 160;
     let minAngle = 20;
@@ -265,6 +286,12 @@
               blocks[ r ][ c ].exist = false;
               this.dy *= -1;
               score+=1;
+              //
+              numOfBricks--;
+              if (numOfBricks==0) {
+                level++;
+                gameInit(level);
+              }
               //
               play(audioBounce);
             }
@@ -324,6 +351,7 @@
 
       // 2 draw
       drawText("Score: " + score, 60, 20, 'blue');
+      drawText("Level: " + level, 200, 20, 'blue');
       blocks.forEach(function (row) {
         row.forEach(function (block) {
           block.draw();
