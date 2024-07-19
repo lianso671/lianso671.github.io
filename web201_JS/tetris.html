@@ -35,7 +35,7 @@
             h:30,
             draw:function(row,col){
                 ctx.beginPath()
-                ctx.rect(this.x*col,this. y*row,this.w,this.h)
+                ctx.rect(this.x+(col*this.w),this. y+(row*this.h),this.w,this.h)
                 ctx.strokeStyle='black'
                 ctx.stroke()
             }
