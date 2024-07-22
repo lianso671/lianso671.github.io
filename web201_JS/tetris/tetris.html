@@ -136,13 +136,22 @@
         draw:draw,
         update:update,
         moveLeft: function() {
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          board.draw();
           tc--;
+          draw();
         },
         moveRight: function() {
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          board.draw();
           tc++;
+          draw();
         },
         moveDown: function() {
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          board.draw();
           tr++;
+          draw();
         },
       }
     }
