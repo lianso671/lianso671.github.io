@@ -21,7 +21,14 @@
                 return i
             }
 
-            return geti
+            function seti(i){
+                i=i
+
+            }
+
+            return{ geti:geti,
+                seti:seti
+            }
         }
 
         let p=a()()
