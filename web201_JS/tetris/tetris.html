@@ -10,7 +10,8 @@
       border: solid 10px deepskyblue;
     }
 
-    label, span {
+    label,
+    span {
       font-weight: bolder;
       font-size: 40px;
       font-family: sans-serif;
@@ -24,78 +25,80 @@
 </head>
 
 <body>
+  <div>
+    <label for="score">Score: </label>
+    <span id="score">0</span>
+  </div>
   <canvas id='canvas' width=300 height=600></canvas>
-  <label for="score">Score: </label>
-  <span id="score">0</span>
-  
+
   <script src="patterns.js"></script>
   <script>
     var canvas = document.querySelector('canvas');
     var ctx = canvas.getContext('2d');
 
     // events
-    let pause=false;
-    window.addEventListener('keydown',function(e){
-      if (e.code==='ArrowLeft') {
+    let pause = false;
+    window.addEventListener('keydown', function (e) {
+      if (e.code === 'ArrowLeft') {
         currTetromino.moveLeft();
-      } else if (e.code==='ArrowRight') {
+      } else if (e.code === 'ArrowRight') {
         currTetromino.moveRight();
-      } else if (e.code==='ArrowDown') {
+      } else if (e.code === 'ArrowDown') {
         currTetromino.moveDown();
-      } else if (e.code==='KeyP') {
-        pause=!pause;
+      } else if (e.code==='ArrowUp') {
+        currTetromino.rotate();
+      }else if (e.code === 'KeyP') {
+        pause = !pause;
       }
     });
 
     // square
     square = {
-      x: 0,
-      y: 0,
-      w: 30,
-      h: 30,
+      size: 30,
       color: 'white',
       strokeColor: 'black',
-      draw: function() {
+      draw: function (row, col) {
+        // row/col -> x/y
+        let x = col * 30;
+        let y = row * 30;
+        // draw
         ctx.beginPath();
-        ctx.rect(this.x, this.y, this.w, this.h);
+        ctx.rect(x, y, this.size, this.size);
         ctx.strokeStyle = this.strokeColor;
         ctx.stroke();
-
-        ctx.fillStyle=this.color;
+        ctx.fillStyle = this.color;
         ctx.fill();
       }
     }
-    square.draw(1,0);
+    square.draw(1, 0);
 
     // board
     board = {
-      x:0,
-      y:0,
       rows:20,
       cols:10,
       squares: (function() {
         let squares=[];
         for (let r=0; r<20; r++) {
+          let row=[];
           for (let c=0; c<10; c++) {
             let s={...square};
-            s.x=0+(c*s.w);
-            s.y=0+(r*s.h);
-            squares.push(s);
+            row.push(s);
           }
+          squares.push(row);
         }
         return squares;
       })(),
       draw: function() {
-        this.squares.forEach(s=> {
-          s.draw();
-        });
+        for (let r=0; r<20; r++){
+          for (let c=0; c<10; c++) {
+            this.squares[r][c].draw(r,c);
+          }
+        }
       }
     }
     board.draw();
 
     Tetromino=function(aShape,row,col) {
-      let tr=row;
-      let tc=col;
       let shape=aShape;
       let currInd=0;
       let currPattern=shape.patterns[currInd];
@@ -105,70 +108,111 @@
           for (let c=0; c<shape.size; c++) {
             // draw border
             let b={...square};
-            b.x=tc*square.w;
-            b.y=tr*square.h;
-            b.w=square.w*shape.size;
-            b.h=square.w*shape.size;
+            b.size=square.size*shape.size;
             b.color='transparent';
             b.strokeColor='red';
-            b.draw();
+            b.draw(row,col);
 
             // convert tr,tc,r,c -> x,y
             if (currPattern[r][c]!=0) {
               let s={...square};
-              s.x=(tc+c)*square.w;
-              s.y=(tr+r)*square.h;
               s.color=shape.color;
-              s.draw();
+              s.draw(row+r,col+c);
             }
           }
         }
       }
 
       function update() {
-        tr++;
+        row++;
+      }
+
+      function rotate() {
+        currInd++;
+        if (currInd==shape.patterns.length) {
+          currInd=0;
+        }
+        currPattern=shape.patterns[currInd];
+        // draw
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        board.draw();
+        draw();
+      }
+
+      function inBoundary(tetrominoRow,tetrominoCol) {
+        for (let r=0; r<shape.size; r++) {
+          for (let c=0; c<shape.size; c++) {
+            // r,c: relative row/col for square in tetromino
+            // rr,cc: absolute row/col for square in board
+            let rr=(tetrominoRow!=undefined?tetrominoRow:row)+r;
+            let cc=(tetrominoCol!=undefined?tetrominoCol:col)+c;
+            if ((cc<0 || cc>9 || rr>19)&&currPattern[r][c]!=0) {
+              console.log('out of boundary');
+              return false;
+            }
+          }
+        }
+        return true;
       }
 
       return {
-        row:tr,
-        col:tc,
+        getRow:function(){
+          return row;
+        },
+        getCol:function(){
+          return col;
+        },
         shape:shape,
         draw:draw,
         update:update,
+        rotate:rotate,
         moveLeft: function() {
-          ctx.clearRect(0,0,canvas.width,canvas.height);
-          board.draw();
-          tc--;
-          draw();
+          if (inBoundary(undefined,col-1)) {
+            col--;
+            // draw
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            board.draw();
+            draw();
+          }
+          
         },
         moveRight: function() {
+          if (inBoundary(undefined,col+1)) {
+            col++;
+            // draw
           ctx.clearRect(0,0,canvas.width,canvas.height);
           board.draw();
-          tc++;
           draw();
+          }
         },
         moveDown: function() {
+          if (inBoundary(row+1)) {
+            row++;
+          }
+          // draw
           ctx.clearRect(0,0,canvas.width,canvas.height);
           board.draw();
-          tr++;
           draw();
         },
+        inBoundary:inBoundary
       }
     }
 
     // test
-    let currTetromino=Tetromino(Z,0,0);
+    currTetromino = Tetromino(Z, 0, 0);
     // currTetromino.draw();
 
     //
-    let pre=null;
+    let pre = null;
     function loop() {
       requestAnimationFrame(loop);
+      if (pause) return;
+
       // set interval to 1 sec
-      let curr=Date.now();
-      if (curr-pre<1000) return; 
-      pre=curr;
-      
+      let curr = Date.now();
+      if (curr - pre < 1000) return;
+      pre = curr;
+
       // 1 clear
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
@@ -177,7 +221,7 @@
       currTetromino.draw();
 
       // 3 update
-      currTetromino.update();
+      // currTetromino.update();
     }
     loop();
   </script>
